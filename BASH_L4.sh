@@ -1,4 +1,13 @@
 #!/bin/bash
+# Funkcja pomocy
+show_help() {
+    echo "Użycie: ./nazwa_skryptu.sh --date | --logs | --logs <liczba> | --help"
+    echo "--date: Wyświetla dzisiejszą datę."
+    echo "--logs: Tworzy 100 plików log."
+    echo "--logs <liczba>: Tworzy określoną liczbę plików log."
+    echo "--help: Wyświetla pomoc."
+}
+
 # Funkcja do tworzenia określonej liczby plików log
 create_n_log() {
     local count=$1
@@ -32,4 +41,9 @@ elif [ "$1" == "--logs" ]; then
         else
         create_log
 	fi
+elif [ "$1" == "--help" ]; then
+show_help
+else
+    echo "Niepoprawne użycie. Użyj --help, aby zobaczyć dostępne opcje."
+    exit 1
 fi
