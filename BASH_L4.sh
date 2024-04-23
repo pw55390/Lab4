@@ -1,23 +1,35 @@
 #!/bin/bash
+# Funkcja do tworzenia określonej liczby plików log
+create_n_log() {
+    local count=$1
+    for ((i=1; i<=$count; i++))
+    do
+        echo "Nazwa pliku: log$i.txt" > log$i.txt
+        echo "Nazwa skryptu: $0" >> log$i.txt
+        echo "Data: $(date +'%Y-%m-%d')" >> log$i.txt
+    done
+}
 
 # Funkcja do tworzenia 100 plików log
 create_log() {
    for ((i=1; i<=100; i++))
    do
       echo "plik: log$i.txt" >log$i.txt
-      echo "Skrypt: BASH_L4.sh" >>log$i.txt
+      echo "Skrypt: $0" >>log$i.txt
       echo "Data: $(date +'%Y-%m-%d')">>log$i.txt
    done
 }
-
+# Funkcja do wyswietlania daty
 print_date() {
     echo "Dziś jest: $(date +'%Y-%m-%d')"
 }
+
 if [ "$1" == "--date" ]; then
     print_date
 elif [ "$1" == "--logs" ]; then
-    create_log
+	if [ -n "$2" ]; then 
+		create_n_log "$2"
+        else
+        create_log
+	fi
 fi
-
-
-
